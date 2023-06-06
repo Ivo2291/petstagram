@@ -1,5 +1,7 @@
 from pathlib import Path
 
+from django.conf.global_settings import STATICFILES_DIRS
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-&ixc3p1#z59_asveun4ji)r0%naov*@bi@()8ri6u3+=+t*8un'
@@ -8,7 +10,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-INSTALLED_APPS = [
+INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -16,11 +18,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'petstagram.accounts'
-    'petstagram.common'
-    'petstagram.pets'
-    'petstagram.photos'
-]
+    'petstagram.accounts',
+    'petstagram.common',
+    'petstagram.pets',
+    'petstagram.photos',
+)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -102,6 +104,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# STATICFILES_DIRS = (
+#     BASE_DIR / 'static_files'
+# )
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
