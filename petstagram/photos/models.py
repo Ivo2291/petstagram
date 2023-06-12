@@ -1,6 +1,7 @@
 from django.core.validators import MinLengthValidator
 from django.db import models
 from petstagram.pets.models import Pet
+from petstagram.photos.validators import validate_file_less_than_5mb
 
 
 class Photo(models.Model):
@@ -10,6 +11,10 @@ class Photo(models.Model):
     MIN_LENGTH_DESCRIPTION = 10
 
     photo = models.ImageField(
+        upload_to='media_files/pet_photos/',
+        validators=(
+            validate_file_less_than_5mb,
+        ),
         null=False,
         blank=True,
     )
@@ -37,5 +42,5 @@ class Photo(models.Model):
 
     tagged_pets = models.ManyToManyField(
         Pet,
-        null=True,
+        blank=True,
     )
