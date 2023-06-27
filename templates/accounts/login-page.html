@@ -1,9 +1,7 @@
 {% extends 'base.html' %}
-{% load static %}
 
 {% block page_content %}
 
-    <!-- Start Login Section-->
     <div class="login-register-div">
         <div class="login-register-box">
             <h1>Petstagram</h1>
@@ -26,11 +24,8 @@
 
         </div>
         <div class="second-option">
-
-            <!-- Link to Register Page-->
             <p>Don't have account? <a href="{% url 'register account' %}">Register</a></p>
         </div>
     </div>
-    <!-- End Login Section-->
 
 {% endblock %}
