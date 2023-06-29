@@ -18,6 +18,7 @@ class Pet(models.Model):
 
     slug = models.SlugField(
         unique=True,
+        editable=False,
         null=False,
         blank=True,
     )

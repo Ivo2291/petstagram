@@ -4,7 +4,7 @@ from petstagram.photos.models import Photo
 
 @admin.register(Photo)
 class PhotoAdmin(admin.ModelAdmin):
-    list_display = ['publication_date', 'location', 'pets']
+    list_display = ['id', 'publication_date', 'location', 'pets']
 
     @staticmethod
     def pets(photo_obj):
