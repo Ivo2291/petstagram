@@ -6,7 +6,7 @@ from petstagram.pets.models import Pet
 class PetBaseForm(forms.ModelForm):
     class Meta:
         model = Pet
-        exclude = ['slug']
+        exclude = ['pet_slug']
 
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': 'Pet Name'}),
@@ -33,3 +33,20 @@ class PetCreateForm(PetBaseForm):
 
 class PetEditForm(PetBaseForm):
     pass
+
+
+class PetDeleteForm(PetBaseForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.__disable_fields()
+
+    def save(self, commit=True):
+        if commit:
+            self.instance.delete()
+        else:
+            return self.instance
+
+    def __disable_fields(self):
+        for field in self.fields.values():
+            field.disabled = True
+            field.widget.attrs['readonly'] = 'readonly'

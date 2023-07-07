@@ -4,4 +4,4 @@ from petstagram.pets.models import Pet
 
 @admin.register(Pet)
 class PetsAdmin(admin.ModelAdmin):
-    list_display = ("name", "slug")
+    list_display = ("name", "pet_slug")

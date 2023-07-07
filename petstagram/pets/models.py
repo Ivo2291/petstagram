@@ -16,7 +16,7 @@ class Pet(models.Model):
         blank=False,
     )
 
-    slug = models.SlugField(
+    pet_slug = models.SlugField(
         unique=True,
         editable=False,
         null=False,
@@ -31,8 +31,8 @@ class Pet(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
-        if not self.slug:
-            self.slug = slugify(f"{self.id}-{self.name}")
+        if not self.pet_slug:
+            self.pet_slug = slugify(f"{self.id}-{self.name}")
 
         return super().save(*args, **kwargs)
 
