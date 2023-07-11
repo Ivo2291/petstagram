@@ -3,13 +3,13 @@ from django.shortcuts import render
 from petstagram.photos.models import Photo
 
 
-def apply_likes_count_photos(photo):
+def apply_likes_count_photo(photo):
     photo.likes_count = photo.like_set.count()
 
     return photo
 
 
-def apply_user_liked_photos(photo):
+def apply_user_liked_photo(photo):
     # TODO: fix it for current user when authentication is learned
     photo.is_liked = photo.likes_count > 0
 
@@ -17,8 +17,8 @@ def apply_user_liked_photos(photo):
 
 
 def index(request):
-    photos = [apply_likes_count_photos(photo) for photo in Photo.objects.all()]
-    photos = [apply_user_liked_photos(photo) for photo in photos]
+    photos = [apply_likes_count_photo(photo) for photo in Photo.objects.all()]
+    photos = [apply_user_liked_photo(photo) for photo in photos]
 
     context = {
         'photos': photos,

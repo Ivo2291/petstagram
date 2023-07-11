@@ -25,7 +25,7 @@ class Photo(models.Model):
         blank=True,
     )
 
-    description = models.TextField(
+    description = models.CharField(
         max_length=MAX_LENGTH_DESCRIPTION,
         validators=(
             MinLengthValidator(MIN_LENGTH_DESCRIPTION),
@@ -44,3 +44,6 @@ class Photo(models.Model):
         Pet,
         blank=True,
     )
+
+    def __str__(self):
+        return f"Location={self.location} - ID={self.id}"

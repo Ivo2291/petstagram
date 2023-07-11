@@ -16,16 +16,21 @@ class Comment(models.Model):
     date_time_of_publication = models.DateTimeField(
         auto_now_add=True,
         blank=True,
+        null=False
     )
 
     to_photo = models.ForeignKey(
         Photo,
-        on_delete=models.CASCADE,
+        on_delete=models.RESTRICT,
+        null=False,
+        blank=True,
     )
 
 
 class Like(models.Model):
     to_photo = models.ForeignKey(
         Photo,
-        on_delete=models.CASCADE,
+        on_delete=models.RESTRICT,
+        null=False,
+        blank=True,
     )

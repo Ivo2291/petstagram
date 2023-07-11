@@ -37,4 +37,4 @@ class Pet(models.Model):
         return super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"Pet name: {self.name}"
+        return f"Name={self.name} - ID={self.id}"
