@@ -14,7 +14,7 @@
                     <div class="userDetails">
 
                         <!-- Link to User Profile Details Page-->
-                        <a href="#">
+                        <a href="{% url 'details account' 1 %}">
                             <div class="profilepic">
                                 <div class="profile_img">
                                     <div class="image">
@@ -26,29 +26,29 @@
                         <h3>
 
                             <!-- Link to User Profile Details Page -->
-                            <a href="#">
+                            <a href="{% url 'details account' 1 %}">
                                 <!-- IF user has first name and last name -->
                                 Diyan Kalaydzhiev
                                 <!-- else -->
                                 <!-- show user username -->
                             </a>
                             <br>
-
-                            <!-- IF the photo has location -->
-                            <span>Bansko, Bulgaria</span>
+                            {% if photo.location %}
+                                <span>{{ photo.location }}</span>
+                            {% endif %}
 
                             <!-- IF the viewer is the creator of the photo -->
                             <div class="edit-delete-btns">
 
-                                <!-- Link to Edit Pet Photo Page -->
-                                <a href="#">
+                                <a href="{% url 'edit photo' pk=photo.pk %}">
                                     <img class="edit-img" src="{% static 'images/edit-pen-icon-6.jpg' %}"
                                          alt="edit button">
                                 </a>
 
                                 <!-- Link to Delete Pet Photo Page -->
-                                <a href="#">
-                                    <img class="bin-img" src="{% static 'images/icon-remove-22.jpg' %}" alt="bin button">
+                                <a href="{% url 'delete photo' pk=photo.pk %}">
+                                    <img class="bin-img" src="{% static 'images/icon-remove-22.jpg' %}"
+                                         alt="bin button">
                                 </a>
                             </div>
                             <!-- End IF the viewer is the creator of the photo -->
@@ -62,7 +62,7 @@
                 <!-- Start Pet Photo -->
                 <div class="imgBx" id="place the id of the photo here">
                     <!-- Pet Photo -->
-                    <img src="{% static 'images/axolotl.jpeg' %}" alt="post" class="cover">
+                    <img src="{{ photo.photo }}" alt="Pet photo" class="cover">
                 </div>
                 <!-- End Pet Photo -->
 

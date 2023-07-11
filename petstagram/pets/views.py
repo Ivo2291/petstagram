@@ -44,6 +44,7 @@ def details_pet(request, username, pet_slug):
     context = {
         'username': username,
         'pet_slug': pet_slug,
+        'pet': pet,
     }
 
     return render(request, 'pets/pet-details-page.html', context)

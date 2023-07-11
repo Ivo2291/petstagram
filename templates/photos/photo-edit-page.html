@@ -3,12 +3,9 @@
 
 {% block page_content %}
 
-    <!-- Starts Edit Photo Section -->
     <div class="edit-delete edit-photo">
         <h2>Edit photo</h2>
-
-        <!-- Starts Edit Photo Form -->
-        <form action="">
+        <form method="post" action="{% url 'edit photo' pk=photo.pk %}">
             <p>
                 <label for="id_photo_file">Photo file:</label>
                 <input type="file">
