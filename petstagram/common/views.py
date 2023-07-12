@@ -24,7 +24,7 @@ def like_photo(request, photo_id):
 
     if not user_liked_photo:
         Like.objects.create(
-            photo_id=photo_id,
+            to_photo_id=photo_id,
         )
     else:
         user_liked_photo.delete()

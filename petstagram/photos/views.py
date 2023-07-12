@@ -5,7 +5,7 @@ from petstagram.photos.models import Photo
 
 
 def add_photo(request):
-    form = PhotoCreateForm(request.POST or None, request.FILES or None)
+    form = PhotoCreateForm(request.POST or None)
 
     if form.is_valid():
         form.save()
