@@ -4,44 +4,37 @@
 {% block page_content %}
 
     <div class="pet-profile">
-        <!-- Start Pet Personal Data Section -->
         <div class="profile">
             <div class="profile-data">
                 <div class="profile_img">
                     <div class="image">
-                        <!-- Pet URL Image -->
                         <img src="{{ pet.personal_pet_photo }}"
-                             alt="img8">
+                             alt="An image of {{ pet.name }}">
                     </div>
                 </div>
                 <div class="personal">
                     <div class="edit">
-                        <!-- Pet Name -->
                         <p>{{ pet.name }}</p>
-                        <!-- Pet Edit Button -->
-                        <a href="{% url 'edit pet' username=username pet_slug=pet_slug %}">
+                        <a href="{% url 'edit pet' username=Ivo pet_slug=pet_slug %}">
                             <img class="edit-img" src="{% static 'images/edit-pen-icon-6.jpg' %}" alt="edit button">
                         </a>
-                        <!-- Pet Delete Button -->
-                        <a href="{% url 'delete pet' username=username pet_slug=pet_slug %}">
+                        <a href="{% url 'delete pet' username=Ivo pet_slug=pet_slug %}">
                             <img class="bin-img" src="{% static 'images/icon-remove-22.jpg' %}" alt="bin button">
                         </a>
                     </div>
                     <div class="data">
-                        <!-- Pet Total Photos -->
-                        <span>4</span>
+                        <span>{{ total_photos }}</span>
                         <p>photos</p>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- End Pet Personal Data Section -->
-
         <div class="pet-posts">
-            <!-- IF Photos End Pet Photos Post Section -->
-            {% include 'common/pets-posts.html' %}
-            <!-- IF NOT Photos Show No Post Image -->
-            <img class="no-posts" src="{% static 'images/no_posts.png' %}" alt="no posts image">
+            {% if pet.photos %}
+                {% include 'common/pets-posts.html' %}
+            {% else %}
+                <img class="no-posts" src="{% static 'images/no_posts.png' %}" alt="no posts image">
+            {% endif %}
         </div>
     </div>
 

@@ -41,7 +41,7 @@
                 <div class="actionBtns">
                     <div class="left">
 								<span class="heart">
-									<a href="#">
+									<a href="{% url 'like photo' photo_id=photo.pk %}">
 										{% if photo.is_liked %}
                                             <svg style="color: red"
                                                  xmlns="http://www.w3.org/2000/svg"
@@ -85,7 +85,7 @@
 								</a>
 								</span>
                         </span>
-                        <a href="#">
+                        <a href="{% url 'share photo' photo_id=photo.pk %}">
                             <svg aria-label="Share Post" class="_8-yf5 " color="#262626" fill="#262626"
                                  height="24" role="img" viewBox="0 0 48 48" width="24">
                                 <path d="M47.8 3.8c-.3-.5-.8-.8-1.3-.8h-45C.9 3.1.3
@@ -119,7 +119,33 @@
 
                 <h5 class="postTime">{{ photo.publication_date }}</h5>
 
-                <!-- add comments section -->
+                {% for comment in photo.comment_set.all %}
+                    <div class="comments">
+                        <div class="top">
+                            <div class="userDetails">
+                                <div class="comment-data">
+                                    <div class="profilepic">
+                                        <div class="profile_img">
+                                            <div class="image">
+                                                <!-- User Profile Image -->
+                                                <img src="{% static 'images/person.png' %}" alt="img8">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p>
+                                        <!-- Link to User Profile Details Page-->
+                                        <!-- User First and/or Last Name or username-->
+{#                                        TODO fix when auth is learned#}
+                                        <a href="">Steven Ivanov</a>
+                                        <!-- User Comment -->
+                                        {{ comment.comment_text }}
+                                    </p>
+                                </div>
+                                <span>{{ comment.date_time_of_publication }}</span>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
                 <div class="addComments">
                     <div class="reaction">
                         <h3>

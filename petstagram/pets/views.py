@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 
+from petstagram.core.photo_utils import apply_likes_count_photo, apply_user_liked_photo
 from petstagram.pets.forms import PetCreateForm, PetEditForm, PetDeleteForm
-from petstagram.pets.models import Pet
+from petstagram.pets.utils import get_pet_by_slug_and_username
 
 
 def add_pet(request):
@@ -21,7 +22,7 @@ def add_pet(request):
 def edit_pet(request, username, pet_slug):
     # TODO: set user when auth is learned
 
-    pet = Pet.objects.filter(pet_slug=pet_slug).get()
+    pet = get_pet_by_slug_and_username(username, pet_slug)
 
     form = PetEditForm(request.POST or None, instance=pet)
 
@@ -39,12 +40,14 @@ def edit_pet(request, username, pet_slug):
 
 
 def details_pet(request, username, pet_slug):
-    pet = Pet.objects.filter(pet_slug=pet_slug).get()
+    pet = get_pet_by_slug_and_username(username, pet_slug)
+    photos = [apply_likes_count_photo(photo) for photo in pet.photo_set.all()]
+    photos = [apply_user_liked_photo(photo) for photo in photos]
 
     context = {
-        'username': username,
-        'pet_slug': pet_slug,
         'pet': pet,
+        'total_photos': pet.photo_set.count(),
+        'photos': photos,
     }
 
     return render(request, 'pets/pet-details-page.html', context)
@@ -53,7 +56,7 @@ def details_pet(request, username, pet_slug):
 def delete_pet(request, username, pet_slug):
     # TODO: set user when auth is learned
 
-    pet = Pet.objects.filter(pet_slug=pet_slug).get()
+    pet = get_pet_by_slug_and_username(username, pet_slug)
 
     form = PetDeleteForm(request.POST or None, instance=pet)
 

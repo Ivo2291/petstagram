@@ -1,5 +1,4 @@
 from django.db import models
-from django.db.models import ForeignKey
 
 from petstagram.photos.models import Photo
 
@@ -25,6 +24,9 @@ class Comment(models.Model):
         null=False,
         blank=True,
     )
+
+    class Meta:
+        ordering = ['-date_time_of_publication']
 
 
 class Like(models.Model):
