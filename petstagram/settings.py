@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 from django.conf.global_settings import STATICFILES_DIRS
@@ -109,11 +110,9 @@ STATICFILES_DIRS = (
     BASE_DIR / 'static_files',
 )
 
-MEDIA_URL = 'media/'
+MEDIA_URL = '/media/'
 
-MEDIA_ROOT = (
-    BASE_DIR / 'media_files',
-)
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media_files')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

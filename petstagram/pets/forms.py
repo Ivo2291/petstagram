@@ -9,15 +9,24 @@ class PetBaseForm(forms.ModelForm):
         exclude = ['pet_slug']
 
         widgets = {
-            'name': forms.TextInput(attrs={'placeholder': 'Pet Name'}),
+            'name': forms.TextInput(
+                attrs={
+                    'placeholder': 'Pet Name'
+                }
+            ),
 
             'date_of_birth': forms.DateInput(
-                attrs={'type': 'date'}
+                attrs={
+                    'type': 'date'
+                }
             ),
 
             'personal_pet_photo': forms.URLInput(
-                attrs={'placeholder': 'Link to Image'}
+                attrs={
+                    'placeholder': 'Link to Image'
+                }
             ),
+
         }
 
         labels = {

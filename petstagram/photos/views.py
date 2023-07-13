@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 
+from petstagram.common.utils import get_user_liked_photo
 from petstagram.photos.forms import PhotoCreateForm, PhotoEditForm
 from petstagram.photos.models import Photo
 
 
 def add_photo(request):
-    form = PhotoCreateForm(request.POST or None)
+    form = PhotoCreateForm(request.POST or None, request.FILES or None)
 
     if form.is_valid():
         form.save()
@@ -37,6 +38,8 @@ def details_photo(request, pk):
 
     context = {
         'photo': photo,
+        'user_liked_photo': get_user_liked_photo(pk),
+        'likes_count': photo.like_set.count(),
     }
 
     return render(request, 'photos/photo-details-page.html', context)
