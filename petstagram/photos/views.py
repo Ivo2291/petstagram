@@ -23,7 +23,7 @@ def edit_photo(request, pk):
 
     if form.is_valid():
         form.save()
-        return redirect('details photo', pk=photo.pk)
+        return redirect('index')
 
     context = {
         'form': form,
@@ -47,6 +47,9 @@ def details_photo(request, pk):
 
 def delete_photo(request, pk):
     photo = Photo.objects.filter(pk=pk).get()
+    if photo.tagged_pets:
+        photo.tagged_pets.clear()
+
     photo.delete()
 
     return redirect('index')

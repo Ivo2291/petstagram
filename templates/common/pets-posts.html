@@ -135,8 +135,8 @@
                                     <p>
                                         <!-- Link to User Profile Details Page-->
                                         <!-- User First and/or Last Name or username-->
-{#                                        TODO fix when auth is learned#}
-                                        <a href="">Steven Ivanov</a>
+                                        {#                                        TODO fix when auth is learned#}
+                                        <a href=""><b>Steven Ivanov </b></a>
                                         <!-- User Comment -->
                                         {{ comment.comment_text }}
                                     </p>
@@ -152,10 +152,9 @@
                             <i class="far fa-smile"></i>
                         </h3>
                     </div>
-                    <form method="post" action="add comment">
-                        <label for="id_body">Body:</label>
-                        <textarea name="body" cols="40" rows="10" placeholder="Add comment..." maxlength="300"
-                                  required="" id="id_body"></textarea>
+                    <form method="post" action="{% url 'comment photo' photo_id=photo.pk %}">
+                        {{ comment_form }}
+                        {% csrf_token %}
                         <button type="submit">Post</button>
                     </form>
                 </div>

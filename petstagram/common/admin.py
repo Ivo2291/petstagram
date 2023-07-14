@@ -5,4 +5,4 @@ from petstagram.common.models import Comment
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['pk', 'date_time_of_publication']

@@ -118,28 +118,18 @@
                             </a>
                         </div>
                     </div>
-
-                    <p class="likes">{{ likes_count }}</p>
-
-                    <!-- Start Tagged Pets Section-->
-                    <!-- Link to First Tagged Pet Details Page -->
-                    <a href="#">
-                        <p class="message">
-                            <b>Sasho</b>
-                        </p>
-                    </a>
-                    <!-- Link to Second Tagged Pet Details Page -->
-                    <a href="#">
-                        <p class="message">
-                            <b>Some other fish</b>
-                        </p>
-                    </a>
-                    <!-- End Tagged Pets Section-->
-
-                    <!-- Photo description -->
-                    <p class="pet-details">{{ photo.description}}</p>
-
-                    <!-- Date of Publication or edit of the Photo -->
+                    <p class="likes">{{ likes_count }} likes</p>
+                    {% for pet in photo.tagged_pets.all %}
+                        <a href="{% url 'details pet' username="Ivo" pet_slug=pet.pet_slug %}">
+                            <p class="message">
+                                <b>{{ pet.name }}</b>
+                            </p>
+                        </a>
+                    {% empty %}
+                    {% endfor %}
+                    {% if pet.description %}
+                        <p class="pet-details">{{ photo.description }}</p>
+                    {% endif %}
                     <h5 class="postTime">{{ photo.publication_date }}</h5>
 
                     <!-- Start Comments Section -->
