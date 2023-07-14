@@ -1,1 +1,1 @@
-Small Django project wich is modifying through 'Python web basics' and 'Python framefork' courses at SoftUni.
+Django project which is modifying through 'Python web basics' and 'Python framework' courses at SoftUni.
