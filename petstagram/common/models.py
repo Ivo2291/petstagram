@@ -8,6 +8,8 @@ class CommentPhoto(models.Model):
 
     text = models.CharField(
         max_length=COMMENT_MAX_LENGTH,
+        null=False,
+        blank=False,
     )
 
     date_time_of_publication = models.DateTimeField(
