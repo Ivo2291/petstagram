@@ -28,30 +28,36 @@
                             <i>Add Photo</i>
                         </a>
                     </li>
-                    <li class="nav-item">
 
-                        <a href="{% url 'login user' %}">
-                            <i>Login</i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
+                    {% if request.user.is_authenticated %}
 
-                        <a href="{% url 'register user' %}">
-                            <i>Register</i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
+                        <li class="nav-item">
+                            <a href="{% url 'details profile' pk=2 %}">
+                                <i>Profile</i>
+                            </a>
+                        </li>
 
-                        <a href="{% url 'details profile' pk=2 %}">
-                            <i>Profile</i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
+                        <li class="nav-item">
+                            <a href="{% url 'logout user' %}">
+                                <i>Logout</i>
+                            </a>
+                        </li>
 
-                        <a href="{% url 'logout user' %}">
-                            <i>Log out</i>
-                        </a>
-                    </li>
+                    {% else %}
+
+                        <li class="nav-item">
+                            <a href="{% url 'login user' %}">
+                                <i>Login</i>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{% url 'register user' %}">
+                                <i>Register</i>
+                            </a>
+                        </li>
+
+                    {% endif %}
                 </ul>
             </div>
         </div>
