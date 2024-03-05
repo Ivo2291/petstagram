@@ -16,8 +16,16 @@ class CommentPhoto(models.Model):
         auto_now_add=True,
     )
 
-    to_photo = models.ForeignKey(Photo, on_delete=models.CASCADE)
+    to_photo = models.ForeignKey(
+        Photo,
+        on_delete=models.CASCADE,
+        related_name='comments',
+    )
 
 
 class LikePhoto(models.Model):
-    to_photo = models.ForeignKey(Photo, on_delete=models.CASCADE)
+    to_photo = models.ForeignKey(
+        Photo,
+        on_delete=models.CASCADE,
+        related_name='likes',
+    )
