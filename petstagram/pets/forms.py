@@ -1,5 +1,6 @@
 from django import forms
 
+from petstagram.core.form_mixins import ReadonlyFieldsFormMixin
 from petstagram.pets.models import Pet
 
 
@@ -26,3 +27,17 @@ class PetCreateForm(PetBaseForm):
 
 class PetEditForm(PetBaseForm):
     pass
+
+
+class PetDeleteForm(ReadonlyFieldsFormMixin, PetBaseForm):
+    readonly_fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._apply_readonly_fields()
+
+    def save(self, commit=True):
+        if commit:
+            self.instance.delete()
+
+        return self.instance

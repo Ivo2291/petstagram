@@ -7,8 +7,9 @@
     <div class="container">
         <div class="col-9">
 
-            <form class="searchbar" method="post">
-                <input type="text" placeholder="Search by pet name...">
+            <form class="searchbar" action="{% url 'home page' %}" method="get">
+                <input type="text" name="pet_name_pattern" placeholder="Search by pet name..."
+                       value="{{ pet_name_pattern|default_if_none:'' }}">
                 <button>
                     <img src="{% static 'images/search.png' %}" height="18" alt="img2">
                 </button>
