@@ -1,5 +1,4 @@
-from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views import generic as views
 
 from petstagram.pets.forms import PetCreateForm, PetEditForm, PetDeleteForm
@@ -11,7 +10,7 @@ class PetCreateView(views.CreateView):
     template_name = 'pets/add-pet.html'
 
     def get_success_url(self):
-        return reverse_lazy('details pet', kwargs={
+        return reverse('details pet', kwargs={
             'username': 'Ivo',
             'pet_slug': self.object.slug,
         })
@@ -24,7 +23,7 @@ class PetEditView(views.UpdateView):
     slug_url_kwarg = 'pet_slug'
 
     def get_success_url(self):
-        return reverse_lazy('details pet', kwargs={
+        return reverse('details pet', kwargs={
             'username': self.request.GET.get('username'),
             'pet_slug': self.object.slug,
         })
@@ -37,26 +36,28 @@ class PetEditView(views.UpdateView):
         return context
 
 
-def delete_pet(request, username, pet_slug):
-    pet = Pet.objects.filter(slug=pet_slug).get()
-
-    form = PetDeleteForm(request.POST or None, instance=pet)
-
-    if request.method == 'POST':
-        form.save()
-
-        return redirect('home page')
-
-    context = {
-        'form': form,
-        'username': username,
-        'pet_slug': pet.slug,
+class PetDeleteView(views.DeleteView):
+    model = Pet
+    form_class = PetDeleteForm
+    template_name = 'pets/delete-pet.html'
+    slug_url_kwarg = 'pet_slug'
+    extra_context = {
+        'username': 'Ivo',
     }
+    success_url = reverse_lazy('home page')
 
-    return render(request, 'pets/delete-pet.html', context)
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['instance'] = self.object
+
+        return kwargs
 
 
 class PetDetailsView(views.DetailView):
-    model = Pet
+    queryset = Pet.objects.all()\
+        .prefetch_related('photos')\
+        .prefetch_related('photos__likes')\
+        .prefetch_related('photos__tagged_pets')
+
     template_name = 'pets/details-pet.html'
     slug_url_kwarg = 'pet_slug'

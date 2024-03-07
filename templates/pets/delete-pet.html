@@ -7,7 +7,7 @@
     <div class="edit-delete edit-photo">
         <h2>Delete pet</h2>
 
-        <form action="{% url 'delete pet' username=username pet_slug=pet_slug %}" method="post">
+        <form action="{% url 'delete pet' username=username pet_slug=object.slug %}" method="post">
             {{ form.as_p }}
             {% csrf_token %}
             <button class="delete-btn" type="submit">Delete</button>
