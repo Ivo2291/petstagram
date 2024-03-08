@@ -29,6 +29,7 @@ class HomePageView(views.ListView):
         .prefetch_related('likes')
 
     template_name = 'common/home-page.html'
+    paginate_by = 1
 
     @property
     def pet_name_pattern(self):
