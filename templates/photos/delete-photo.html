@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block main_content %}
+
+    <div class="edit-delete edit-photo">
+        <h2>Delete this photo?</h2>
+
+        <form action="{% url 'delete photo' pk=object.pk %}" method="post">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <button class="delete-btn" type="submit">Yes</button>
+            <a class="btn btn-primary" href="javascript:history.back()">
+                <button class="edit-btn" type="button">Go back</button>
+            </a>
+        </form>
+
+    </div>
+
+{% endblock %}

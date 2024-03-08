@@ -7,13 +7,13 @@
     <div class="container">
         <div class="col-9">
 
-            {% include 'partials/pet-photo-list-item.html' with photo=pet_photo %}
+            {% include 'partials/pet-photo-list-item.html' with photo=object %}
 
-            <p class="pet-details">{{ pet_photo.description }}</p>
+            <p class="pet-details">{{ object.description }}</p>
 
-            <h5 class="postTime">{{ pet_photo.date_of_publication }}</h5>
+            <h5 class="postTime">{{ object.date_of_publication }}</h5>
 
-            {% for comment in pet_photo.comments.all %}
+            {% for comment in object.comments.all %}
                 <div class="comments">
                     <div class="top">
                         <div class="userDetails">
@@ -28,7 +28,7 @@
                                 <p>
                                     <!-- Link to User Profile Details Page-->
                                     <!-- User First and/or Last Name or username-->
-                                    <a href="">Steven Ivanov</a>
+                                    <a href="">Ivo</a>
                                     <!-- User Comment -->
                                     - {{ comment.text }}
                                 </p>

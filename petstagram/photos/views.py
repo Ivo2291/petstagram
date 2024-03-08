@@ -1,23 +1,51 @@
-from django.shortcuts import render
+from django.urls import reverse, reverse_lazy
 
+from petstagram.photos.forms import PhotoCreateForm, PhotoEditForm
 from petstagram.photos.models import Photo
 
-
-def add_photo(request):
-    context = {}
-
-    return render(request, 'photos/add-photo.html', context)
+from django.views import generic as views
 
 
-def edit_photo(request, pk):
-    context = {}
+class AddPhotoView(views.CreateView):
+    Model = Photo
+    form_class = PhotoCreateForm
+    template_name = 'photos/add-photo.html'
 
-    return render(request, 'photos/edit-photo.html', context)
+    def get_success_url(self):
+        return reverse('details photo', kwargs={
+            'pk': self.object.pk
+        })
 
 
-def details_photo(request, pk):
-    context = {
-        'pet_photo': Photo.objects.get(pk=pk)
-    }
+class EditPhotoView(views.UpdateView):
+    queryset = Photo.objects.all() \
+        .prefetch_related('tagged_pets') \
+        .prefetch_related('likes') \
+        .prefetch_related('comments')
 
-    return render(request, 'photos/details-photo.html', context)
+    form_class = PhotoEditForm
+    template_name = 'photos/edit-photo.html'
+
+    def get_success_url(self):
+        return reverse('details photo', kwargs={
+            'pk': self.object.pk
+        })
+
+
+class DeletePhotoView(views.DeleteView):
+    queryset = Photo.objects.all() \
+        .prefetch_related('tagged_pets') \
+        .prefetch_related('likes') \
+        .prefetch_related('comments')
+
+    template_name = 'photos/delete-photo.html'
+    success_url = reverse_lazy('home page')
+
+
+class DetailsPhotoView(views.DetailView):
+    queryset = Photo.objects.all() \
+        .prefetch_related('tagged_pets') \
+        .prefetch_related('likes') \
+        .prefetch_related('comments')
+
+    template_name = 'photos/details-photo.html'

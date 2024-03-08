@@ -26,7 +26,8 @@ from petstagram.photos.models import Photo
 class HomePageView(views.ListView):
     queryset = Photo.objects.all() \
         .prefetch_related('tagged_pets') \
-        .prefetch_related('likes')
+        .prefetch_related('likes')\
+        .order_by('pk')
 
     template_name = 'common/home-page.html'
     paginate_by = 1

@@ -5,7 +5,7 @@ from petstagram.pets.forms import PetCreateForm, PetEditForm, PetDeleteForm
 from petstagram.pets.models import Pet
 
 
-class PetCreateView(views.CreateView):
+class AddPetView(views.CreateView):
     form_class = PetCreateForm
     template_name = 'pets/add-pet.html'
 
@@ -16,7 +16,7 @@ class PetCreateView(views.CreateView):
         })
 
 
-class PetEditView(views.UpdateView):
+class EditPetView(views.UpdateView):
     model = Pet
     form_class = PetEditForm
     template_name = 'pets/edit-pet.html'
@@ -36,7 +36,7 @@ class PetEditView(views.UpdateView):
         return context
 
 
-class PetDeleteView(views.DeleteView):
+class DeletePetView(views.DeleteView):
     model = Pet
     form_class = PetDeleteForm
     template_name = 'pets/delete-pet.html'
@@ -53,7 +53,7 @@ class PetDeleteView(views.DeleteView):
         return kwargs
 
 
-class PetDetailsView(views.DetailView):
+class DetailsPetView(views.DetailView):
     queryset = Pet.objects.all()\
         .prefetch_related('photos')\
         .prefetch_related('photos__likes')\
