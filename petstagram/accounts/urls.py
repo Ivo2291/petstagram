@@ -8,7 +8,7 @@ urlpatterns = (
     path('logout/', v.logout_user, name='logout user'),
     path('profile/<int:pk>/', include([
         path('', v.details_profile, name='details profile'),
-        path('edit/', v.edit_profile, name='edit profile'),
+        path('edit/', v.EditProfileView.as_view(), name='edit profile'),
         path('delete/', v.delete_profile, name='delete profile'),
     ])),
 )

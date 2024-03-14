@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from django.views import generic as views
 
 from petstagram.accounts.forms import PetstagramUserCreationForm
+from petstagram.accounts.models import Profile
 
 
 class RegisterUserView(views.CreateView):
@@ -36,10 +37,11 @@ def details_profile(request, pk):
     return render(request, 'accounts/details-profile.html', context)
 
 
-def edit_profile(request, pk):
-    context = {}
-
-    return render(request, 'accounts/edit-profile.html', context)
+class EditProfileView(views.UpdateView):
+    queryset = Profile.objects.all()\
+        .prefetch_related('user')
+    template_name = 'accounts/edit-profile.html'
+    fields = ['first_name', 'last_name', 'date_of_birth', 'profile_picture']
 
 
 def delete_profile(request, pk):

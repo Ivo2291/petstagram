@@ -1,32 +1,14 @@
 from django.shortcuts import redirect
-
-from petstagram.common.models import LikePhoto
-
 from django.views import generic as views
 
+from petstagram.common.models import LikePhoto
 from petstagram.photos.models import Photo
-
-
-# def homepage(request):
-#     pet_name_pattern = request.GET.get('pet_name_pattern', None)
-#
-#     pet_photos = Photo.objects.all()
-#
-#     if pet_name_pattern:
-#         pet_photos = pet_photos.filter(tagged_pets__name__icontains=pet_name_pattern)
-#
-#     context = {
-#         'pet_photos': pet_photos,
-#         'pet_name_pattern': pet_name_pattern,
-#     }
-#
-#     return render(request, 'common/home-page.html', context)
 
 
 class HomePageView(views.ListView):
     queryset = Photo.objects.all() \
         .prefetch_related('tagged_pets') \
-        .prefetch_related('likes')\
+        .prefetch_related('likes') \
         .order_by('pk')
 
     template_name = 'common/home-page.html'

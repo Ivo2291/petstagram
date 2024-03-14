@@ -7,18 +7,21 @@
     <div class="container">
         <div class="col-9">
 
-            <form class="searchbar" action="{% url 'home page' %}" method="get">
-                <input type="text" name="pet_name_pattern" placeholder="Search by pet name..."
-                       value="{{ pet_name_pattern|default_if_none:'' }}">
-                <button>
-                    <img src="{% static 'images/search.png' %}" height="18" alt="img2">
-                </button>
-            </form>
+            {% if request.user.is_authenticated %}
 
-            {% include 'partials/pet-photos-list.html' with photo_list=object_list %}
+                <form class="searchbar" action="{% url 'home page' %}" method="get">
+                    <input type="text" name="pet_name_pattern" placeholder="Search by pet name..."
+                           value="{{ pet_name_pattern|default_if_none:'' }}">
+                    <button>
+                        <img src="{% static 'images/search.png' %}" height="18" alt="img2">
+                    </button>
+                </form>
 
-            {% include 'partials/pet-photo-pagination.html' %}
+                {% include 'partials/pet-photos-list.html' with photo_list=object_list %}
 
+                {% include 'partials/pet-photo-pagination.html' %}
+
+            {% endif %}
         </div>
     </div>
 

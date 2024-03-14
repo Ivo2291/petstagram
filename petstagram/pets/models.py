@@ -3,10 +3,10 @@ from django.template.defaultfilters import slugify
 
 
 class Pet(models.Model):
-    MAX_NAME_LENGTH = 30
+    NAME_MAX_LENGTH = 30
 
     name = models.CharField(
-        max_length=MAX_NAME_LENGTH,
+        max_length=NAME_MAX_LENGTH,
         blank=False,
         null=False,
     )
