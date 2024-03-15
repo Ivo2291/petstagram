@@ -28,13 +28,12 @@ class LoginUserView(auth_views.LoginView):
 def logout_user(request):
     logout(request)
 
-    return redirect('home page')
+    return redirect('login user')
 
 
-def details_profile(request, pk):
-    context = {}
-
-    return render(request, 'accounts/details-profile.html', context)
+class DetailsProfileView(views.DetailView):
+    queryset = Profile.objects.all()
+    template_name = 'accounts/details-profile.html'
 
 
 class EditProfileView(views.UpdateView):

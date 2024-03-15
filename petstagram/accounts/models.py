@@ -64,6 +64,18 @@ class Profile(models.Model):
 
     user = models.OneToOneField(
         PetstagramUser,
+        primary_key=True,
         on_delete=models.CASCADE,
-        related_name='profiles'
+        related_name='profiles',
     )
+
+    @property
+    def get_full_name(self):
+        if self.first_name and self.last_name:
+            return f'{self.first_name} {self.last_name}'
+        elif self.first_name:
+            return f'{self.first_name}'
+        elif self.last_name:
+            return f'{self.last_name}'
+        else:
+            return ''
