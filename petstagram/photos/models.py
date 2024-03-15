@@ -1,11 +1,14 @@
 from django.core.validators import MinLengthValidator
 from django.db import models
 
+from petstagram.core.models import HaveUser
 from petstagram.pets.models import Pet
 from petstagram.photos.validators import validate_file_size
 
 
-class Photo(models.Model):
+
+
+class Photo(HaveUser, models.Model):
     DESCRIPTION_MAX_LENGTH = 300
     DESCRIPTION_MIN_LENGTH = 10
     LOCATION_MAX_LENGTH = 30
@@ -34,12 +37,12 @@ class Photo(models.Model):
         null=True,
     )
 
+    date_of_publication = models.DateField(
+        auto_now=True,
+    )
+
     tagged_pets = models.ManyToManyField(
         Pet,
         blank=True,
         related_name='photos',
-    )
-
-    date_of_publication = models.DateField(
-        auto_now=True,
     )

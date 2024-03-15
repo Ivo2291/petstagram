@@ -1,11 +1,12 @@
 from django.urls import reverse_lazy, reverse
 from django.views import generic as views
 
+from petstagram.core.view_mixins import OwnerRequiredMixin
 from petstagram.pets.forms import PetCreateForm, PetEditForm, PetDeleteForm
 from petstagram.pets.models import Pet
 
 
-class AddPetView(views.CreateView):
+class AddPetView(OwnerRequiredMixin, views.CreateView):
     form_class = PetCreateForm
     template_name = 'pets/add-pet.html'
 
@@ -15,8 +16,15 @@ class AddPetView(views.CreateView):
             'pet_slug': self.object.slug,
         })
 
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class=form_class)
 
-class EditPetView(views.UpdateView):
+        form.instance.user = self.request.user
+
+        return form
+
+
+class EditPetView(OwnerRequiredMixin, views.UpdateView):
     model = Pet
     form_class = PetEditForm
     template_name = 'pets/edit-pet.html'
@@ -36,7 +44,7 @@ class EditPetView(views.UpdateView):
         return context
 
 
-class DeletePetView(views.DeleteView):
+class DeletePetView(OwnerRequiredMixin, views.DeleteView):
     model = Pet
     form_class = PetDeleteForm
     template_name = 'pets/delete-pet.html'
@@ -53,10 +61,10 @@ class DeletePetView(views.DeleteView):
         return kwargs
 
 
-class DetailsPetView(views.DetailView):
-    queryset = Pet.objects.all()\
-        .prefetch_related('photos')\
-        .prefetch_related('photos__likes')\
+class DetailsPetView(OwnerRequiredMixin, views.DetailView):
+    queryset = Pet.objects.all() \
+        .prefetch_related('photos') \
+        .prefetch_related('photos__likes') \
         .prefetch_related('photos__tagged_pets')
 
     template_name = 'pets/details-pet.html'

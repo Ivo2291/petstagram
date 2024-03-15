@@ -1,8 +1,10 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 
+from petstagram.core.models import HaveUser
 
-class Pet(models.Model):
+
+class Pet(HaveUser, models.Model):
     NAME_MAX_LENGTH = 30
 
     name = models.CharField(

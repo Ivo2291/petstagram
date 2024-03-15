@@ -1,9 +1,10 @@
 from django.db import models
 
+from petstagram.core.models import HaveUser
 from petstagram.photos.models import Photo
 
 
-class CommentPhoto(models.Model):
+class CommentPhoto(HaveUser, models.Model):
     COMMENT_MAX_LENGTH = 300
 
     text = models.CharField(
@@ -23,7 +24,7 @@ class CommentPhoto(models.Model):
     )
 
 
-class LikePhoto(models.Model):
+class LikePhoto(HaveUser, models.Model):
     to_photo = models.ForeignKey(
         Photo,
         on_delete=models.CASCADE,

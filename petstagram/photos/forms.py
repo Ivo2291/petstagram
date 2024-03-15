@@ -21,7 +21,7 @@ class PhotoCreateForm(PhotoBaseForm):
 class PhotoEditForm(PhotoBaseForm):
     class Meta:
         model = Photo
-        exclude = ['photo']
+        exclude = ['photo', 'user']
 
         widgets = {
             'description': forms.TextInput(attrs={'placeholder': 'Description'}),

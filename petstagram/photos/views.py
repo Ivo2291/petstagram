@@ -1,12 +1,13 @@
 from django.urls import reverse, reverse_lazy
 
+from petstagram.core.view_mixins import OwnerRequiredMixin
 from petstagram.photos.forms import PhotoCreateForm, PhotoEditForm
 from petstagram.photos.models import Photo
 
 from django.views import generic as views
 
 
-class AddPhotoView(views.CreateView):
+class AddPhotoView(OwnerRequiredMixin, views.CreateView):
     Model = Photo
     form_class = PhotoCreateForm
     template_name = 'photos/add-photo.html'
@@ -16,8 +17,15 @@ class AddPhotoView(views.CreateView):
             'pk': self.object.pk
         })
 
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class=form_class)
 
-class EditPhotoView(views.UpdateView):
+        form.instance.user = self.request.user
+
+        return form
+
+
+class EditPhotoView(OwnerRequiredMixin,  views.UpdateView):
     queryset = Photo.objects.all() \
         .prefetch_related('tagged_pets') \
         .prefetch_related('likes') \
@@ -32,7 +40,7 @@ class EditPhotoView(views.UpdateView):
         })
 
 
-class DeletePhotoView(views.DeleteView):
+class DeletePhotoView(OwnerRequiredMixin, views.DeleteView):
     queryset = Photo.objects.all() \
         .prefetch_related('tagged_pets') \
         .prefetch_related('likes') \
@@ -42,7 +50,7 @@ class DeletePhotoView(views.DeleteView):
     success_url = reverse_lazy('home page')
 
 
-class DetailsPhotoView(views.DetailView):
+class DetailsPhotoView(OwnerRequiredMixin, views.DetailView):
     queryset = Photo.objects.all() \
         .prefetch_related('tagged_pets') \
         .prefetch_related('likes') \
